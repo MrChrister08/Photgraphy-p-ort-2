@@ -439,24 +439,27 @@ color: var(--text-secondary);
 }
 
 /* ==========================================================================
-09. CONTACT UNIQUE LAYOUT ELEMENTS
-========================================================================== */
+   09. CONTACT UNIQUE LAYOUT ELEMENTS
+   ========================================================================== */
 .contact-content-wrapper {
     padding: 40px 80px 60px;
     flex-grow: 1;
     display: grid;
     grid-template-columns: 320px 1fr;
-    gap: 40px;align-items: center;
-    position: relative;z-index: 2;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
 }
-    
+
 .contact-cta-message h2 {
     font-size: 36px;
     font-weight: 400;
     letter-spacing: 0.05em;
     line-height: 1.2;
-    margin-bottom: 16px;}
-        
+    margin-bottom: 16px;
+}
+
 .contact-cta-message p {
     font-size: 13px;
     color: var(--text-secondary);
@@ -510,13 +513,13 @@ color: var(--text-secondary);
 }
 
 /* ==========================================================================
-10. LAYOUT FOOTER STRIP
-========================================================================== */
-
+   10. LAYOUT FOOTER STRIP
+   ========================================================================== */
 .site-footer {
     margin-top: auto;
     border-top: 1px solid var(--border-glass);
-    padding: 20px 40px;display: flex;
+    padding: 20px 40px;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 10px;
@@ -534,4 +537,33 @@ color: var(--text-secondary);
 .footer-nav a {
     font-size: 10px;
     letter-spacing: 0.08em;
+}
+
+/* ==========================================================================
+   11. PRODUCTION IMAGE RENDERING ENGINE
+   ========================================================================== */
+.image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    opacity: 0.65; /* Preserves the dark cinematic overlay contrast */
+    transition: opacity 0.3s ease;
+}
+
+.image-placeholder:hover img {
+    opacity: 0.85; /* Subtle illumination on element interaction */
+}
+
+/* ==========================================================================
+   12. DEPTH STACKING LAYER CORRECTIONS
+   ========================================================================== */
+.portfolio-controls,
+.gallery-grid,
+.about-content-wrapper,
+.contact-content-wrapper,
+.site-footer {
+    position: relative;
+    z-index: 2; /* Forces these containers to float cleanly above the image layer */
 }
