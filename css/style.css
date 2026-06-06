@@ -100,6 +100,7 @@ a {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.75) 100%);
+    z-index: 1;
 }
 
 /* Status Data Item Flex rows */
@@ -111,13 +112,12 @@ a {
     color: var(--text-secondary);
 }
 
-.status-item i {
+.status-item svg {
     color: var(--text-muted);
-    font-size: 14px;
 }
 
 /* ==========================================================================
-   04. MULTI-FRAME PRESENTATION WRAPPER (UPDATED)
+   04. MULTI-FRAME PRESENTATION WRAPPER
    ========================================================================== */
 .presentation-container {
     max-width: 1200px;
@@ -129,7 +129,7 @@ a {
 }
 
 .frame-section {
-    display: block; /* Modified from grid to full-width block */
+    display: block;
     width: 100%;
     position: relative;
 }
@@ -187,7 +187,12 @@ a {
     display: flex;
     gap: 16px;
     color: var(--text-secondary);
-    font-size: 16px;
+    align-items: center;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
 }
 
 /* ==========================================================================
@@ -486,4 +491,21 @@ a {
 .footer-nav a {
     font-size: 10px;
     letter-spacing: 0.08em;
+}
+
+/* ==========================================================================
+   11. PRODUCTION IMAGE RENDERING ENGINE
+   ========================================================================== */
+.image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    opacity: 0.65; /* Preserves the dark cinematic overlay contrast */
+    transition: opacity 0.3s ease;
+}
+
+.image-placeholder:hover img {
+    opacity: 0.85; /* Subtle illumination on element interaction */
 }
