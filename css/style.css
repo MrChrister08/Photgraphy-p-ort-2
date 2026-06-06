@@ -84,25 +84,6 @@ a {
     transform: translateY(-1px);
 }
 
-/* Placeholder Graphic Engine */
-.image-placeholder {
-    background-color: #24282c;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 20px 20px;
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-}
-
-.image-placeholder::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.75) 100%);
-    z-index: 1;
-}
-
 /* Status Data Item Flex rows */
 .status-item {
     display: flex;
@@ -112,8 +93,9 @@ a {
     color: var(--text-secondary);
 }
 
-.status-item svg {
+.status-item i {
     color: var(--text-muted);
+    font-size: 14px;
 }
 
 /* ==========================================================================
@@ -156,7 +138,9 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 24px 40px;
-    z-index: 10;
+    position: relative;
+    z-index: 10; /* Keeps navbar sitting securely on top of background images */
+    width: 100%;
 }
 
 .logo {
@@ -187,12 +171,14 @@ a {
     display: flex;
     gap: 16px;
     color: var(--text-secondary);
+    font-size: 16px;
     align-items: center;
 }
 
 .social-icons a {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 /* ==========================================================================
@@ -201,16 +187,41 @@ a {
 .hero-viewport {
     position: relative;
     flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.hero-content {
+/* Background Photo Layer stretching absolute edge-to-edge behind everything */
+.hero-viewport .image-placeholder {
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: -85px; /* Pulls the image all the way up underneath the header area */
+    left: 0;
+    width: 100%;
+    height: calc(100% + 85px);
+    z-index: 1;
+}
+
+.hero-viewport .image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    opacity: 0.50; /* Preserves contrast against white typography */
+    filter: blur(8px); /* The classy glassmorphism blur effect */
+    transform: scale(1.04); /* Eliminates blurry edge artifact leaks */
+}
+
+/* UI Content floating on top of the background photo */
+.hero-content {
+    position: relative;
     z-index: 2;
-    padding: 60px 80px;
+    padding: 40px 60px 60px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex-grow: 1;
     pointer-events: none;
 }
 
@@ -225,6 +236,7 @@ a {
     text-transform: uppercase;
     line-height: 1.1;
     margin-bottom: 8px;
+    margin-top: 20px;
 }
 
 .hero-title-group p {
@@ -268,6 +280,8 @@ a {
     justify-content: center;
     gap: 8px;
     padding: 10px 0 30px;
+    position: relative;
+    z-index: 2;
 }
 
 .filter-tab {
@@ -294,6 +308,8 @@ a {
     gap: 16px;
     padding: 0 40px 40px;
     flex-grow: 1;
+    position: relative;
+    z-index: 2;
 }
 
 .gallery-item {
@@ -301,6 +317,25 @@ a {
     overflow: hidden;
     position: relative;
     border: 1px solid var(--border-glass);
+}
+
+.gallery-item .image-placeholder {
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-item .image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .image-placeholder img {
+    opacity: 0.95;
 }
 
 .gallery-item .item-label {
@@ -315,7 +350,7 @@ a {
     font-weight: 500;
 }
 
-/* Explicit Masonry Proportional Grid Sizing Constants */
+/* Masonry Grid Aspect Ratio Maps */
 .gi-1 { grid-column: span 1; grid-row: span 2; }
 .gi-2 { grid-column: span 1; grid-row: span 2; }
 .gi-3 { grid-column: span 2; grid-row: span 2; }
@@ -334,6 +369,8 @@ a {
     padding: 20px 80px 40px;
     flex-grow: 1;
     align-items: center;
+    position: relative;
+    z-index: 2;
 }
 
 .about-profile-card {
@@ -347,6 +384,12 @@ a {
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--border-glass);
+}
+
+.about-avatar-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .about-stats-panel {
@@ -392,29 +435,28 @@ a {
     font-family: 'Courier New', Courier, monospace;
     font-style: italic;
     font-size: 22px;
-    color: var(--text-secondary);
+color: var(--text-secondary);
 }
 
 /* ==========================================================================
-   09. CONTACT UNIQUE LAYOUT ELEMENTS
-   ========================================================================== */
+09. CONTACT UNIQUE LAYOUT ELEMENTS
+========================================================================== */
 .contact-content-wrapper {
     padding: 40px 80px 60px;
     flex-grow: 1;
     display: grid;
     grid-template-columns: 320px 1fr;
-    gap: 40px;
-    align-items: center;
+    gap: 40px;align-items: center;
+    position: relative;z-index: 2;
 }
-
+    
 .contact-cta-message h2 {
     font-size: 36px;
     font-weight: 400;
     letter-spacing: 0.05em;
     line-height: 1.2;
-    margin-bottom: 16px;
-}
-
+    margin-bottom: 16px;}
+        
 .contact-cta-message p {
     font-size: 13px;
     color: var(--text-secondary);
@@ -442,8 +484,7 @@ a {
     transform: translateY(-2px);
 }
 
-.channel-card i {
-    font-size: 24px;
+.channel-card svg {
     color: var(--text-main);
 }
 
@@ -469,18 +510,20 @@ a {
 }
 
 /* ==========================================================================
-   10. LAYOUT FOOTER STRIP
-   ========================================================================== */
+10. LAYOUT FOOTER STRIP
+========================================================================== */
+
 .site-footer {
     margin-top: auto;
     border-top: 1px solid var(--border-glass);
-    padding: 20px 40px;
-    display: flex;
+    padding: 20px 40px;display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 10px;
     color: var(--text-muted);
     letter-spacing: 0.08em;
+    position: relative;
+    z-index: 2;
 }
 
 .footer-nav {
@@ -491,21 +534,4 @@ a {
 .footer-nav a {
     font-size: 10px;
     letter-spacing: 0.08em;
-}
-
-/* ==========================================================================
-   11. PRODUCTION IMAGE RENDERING ENGINE
-   ========================================================================== */
-.image-placeholder img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    opacity: 0.65; /* Preserves the dark cinematic overlay contrast */
-    transition: opacity 0.3s ease;
-}
-
-.image-placeholder:hover img {
-    opacity: 0.85; /* Subtle illumination on element interaction */
 }
